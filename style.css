@@ -1,0 +1,83 @@
+:root {
+    --verdetto: #15941f;
+    --violetta: #0b032d;
+    --azzurretta: #07beb8;
+    --giallogno: #7c8015;
+    --verdone: #384d48;
+    --violaccio: #231651;
+    --fucsia: #ff0077;
+    --rosso: #ff0000;
+}
+
+body {
+    font-family: "Sour Gummy", serif;
+    font-optical-sizing: auto;
+    font-weight: 500;
+    font-style: normal;
+}
+
+/* Typography */
+h1 {
+    color: var(--giallogno);
+}
+
+h2 {
+    color: var(--verdetto);
+}
+
+h3 {
+    color: var(--fucsia);
+}
+
+.navbar .navbar-brand.logo {
+    color: var(--rosso);
+    font-weight: normal;
+}
+
+/* Navigation */
+.navbar {
+    margin-top: 3rem;
+}
+
+.nav-link.active {
+    font-weight: bold;
+    font-size: 1.25rem;
+}
+
+/* Footer Styles */
+footer {
+    border-top: 1px solid #dee2e6;
+    margin-top: 3rem;
+    padding-top: 2rem;
+}
+
+footer p {
+    margin-bottom: 0.5rem;
+    color: #6c757d;
+}
+
+footer .year-line {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1rem;
+}
+
+footer .year-line hr {
+    width: 100px;
+    margin: 0;
+    border-top: 2px solid var(--violaccio);
+}
+
+/* Media Queries */
+@media (max-width: 768px) {
+    h1 {
+        font-size: 2.5rem;
+    }
+    h2 {
+        font-size: 2rem;
+    }
+    h3 {
+        font-size: 1.125rem;
+    }
+}

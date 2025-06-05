@@ -1,0 +1,13 @@
+body {
+    background-color: #ffffbf;
+}
+
+.about-content {
+    min-height: 70vh;
+    padding: 4rem 0;
+}
+
+.container .jumbotron, .jumbotron.bg-light {
+    background-color: transparent;
+    padding: 4rem 2rem;
+}

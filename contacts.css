@@ -1,0 +1,55 @@
+:root {
+    --colore: #00579e;
+}
+
+.content {
+    margin-bottom: 3rem;
+}
+
+.contacts-item h4, .contacts-item a {
+    color: var(--colore);
+    font-size: 1.25rem;
+    font-weight: bold;
+}
+
+.contacts-social {
+    transition: color 0.3s ease;
+}
+
+.contacts-social:hover {
+    color: var(--fucsia);
+    text-decoration: none;
+}
+
+.contacts-item h2 {
+    margin-bottom: 1rem;
+}
+
+.contacts-section {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    width: 100%;
+}
+
+#img-contacts {
+    width: 100%;
+}
+
+@media (max-width: 768px) {
+    .contacts-section {
+        flex-direction: column;
+    }
+
+    .contacts-item h2 {
+        margin-bottom: 0;
+    }
+
+    .contacts-section > :not(:last-child) {
+        margin-bottom: 1rem;
+    }
+
+    .contacts-item {
+        text-align: center;
+    }
+}
