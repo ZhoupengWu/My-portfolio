@@ -16,7 +16,6 @@ body {
     font-style: normal;
 }
 
-/* Typography */
 h1 {
     color: var(--giallogno);
 }
@@ -29,14 +28,13 @@ h3 {
     color: var(--fucsia);
 }
 
+nav.bg-light {
+    background-color: #d9dfe5 !important;
+}
+
 .navbar .navbar-brand.logo {
     color: var(--rosso);
     font-weight: normal;
-}
-
-/* Navigation */
-.navbar {
-    margin-top: 3rem;
 }
 
 .nav-link.active {
@@ -44,7 +42,6 @@ h3 {
     font-size: 1.25rem;
 }
 
-/* Footer Styles */
 footer {
     border-top: 1px solid #dee2e6;
     margin-top: 3rem;
@@ -69,7 +66,6 @@ footer .year-line hr {
     border-top: 2px solid var(--violaccio);
 }
 
-/* Media Queries */
 @media (max-width: 768px) {
     h1 {
         font-size: 2.5rem;
