@@ -2,6 +2,10 @@ header.bg-light {
     background-color: #afd3f7 !important;
 }
 
+.card-title {
+    margin-bottom: 1.75rem;
+}
+
 .card {
     transition: transform 0.3s ease;
     box-shadow: 0 4px 6px rgba(0,0,0,0.1);
