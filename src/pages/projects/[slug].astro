@@ -25,7 +25,7 @@ const period = endDate ? `${fmt(date)} – ${fmt(endDate)}` : fmt(date);
       <div>
         {
           cover && (
-            <Image src={cover} alt={coverAlt ?? title} widths={[600, 1000]} sizes="(min-width: 48rem) 40rem, 100vw" class="mb-6 w-full rounded-card" />
+            <Image src={cover} alt={coverAlt ?? title} widths={[600, 1000]} sizes="(min-width: 48rem) 40rem, 100vw" loading="eager" class="mb-6 w-full rounded-card" />
           )
         }
         <div class="[&_a]:underline [&_code]:bg-surface-alt [&_code]:rounded [&_code]:px-1.5 [&_h2]:mt-6 [&_h3]:mt-5 [&_li]:mb-1 [&_ol]:list-decimal [&_ol]:pl-5 [&_ul]:list-disc [&_ul]:pl-5">
