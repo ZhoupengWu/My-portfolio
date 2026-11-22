@@ -32,9 +32,12 @@ const canonical = Astro.site ? new URL(Astro.url.pathname, Astro.site) : undefin
     <Font cssVariable="--font-sour-gummy" preload />
   </head>
   <body>
-    <a class="sr-only" href="#main">Skip to content</a>
+    <a
+      class="focus:bg-surface focus:text-ink sr-only focus:not-sr-only focus:fixed focus:top-2 focus:left-2 focus:z-50 focus:rounded focus:px-3 focus:py-2"
+      href="#main">Skip to content</a
+    >
     <Header />
-    <main id="main">
+    <main id="main" class="flex-1">
       <slot />
     </main>
     <Footer />

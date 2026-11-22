@@ -5,24 +5,30 @@ const path = Astro.url.pathname.replace(/\/$/, '') || '/';
 const isActive = (href: string) => (href === '/' ? path === '/' : path === href || path.startsWith(`${href}/`));
 ---
 
-<header class="site-header">
-  <div class="container bar">
-    <a class="brand" href="/">{SITE_TITLE}</a>
+<header class="bg-surface-alt mx-auto w-full max-w-site rounded-b-card">
+  <div class="flex flex-wrap items-center justify-between px-5 py-3.5">
+    <a class="text-brand text-2xl no-underline" href="/">{SITE_TITLE}</a>
     <button
-      class="menu-toggle"
+      class="menu-toggle border-line flex cursor-pointer flex-col gap-1 rounded-lg border p-2 sm:hidden"
       type="button"
       aria-expanded="false"
       aria-controls="site-nav"
       aria-label="Toggle navigation"
     >
-      <span></span><span></span><span></span>
+      <span class="bg-ink block h-0.5 w-[22px]"></span>
+      <span class="bg-ink block h-0.5 w-[22px]"></span>
+      <span class="bg-ink block h-0.5 w-[22px]"></span>
     </button>
-    <nav id="site-nav" aria-label="Main">
-      <ul>
+    <nav id="site-nav" aria-label="Main" class="hidden w-full pt-3 data-[open]:block sm:block sm:w-auto sm:pt-0">
+      <ul class="m-0 flex list-none flex-col gap-2 p-0 sm:flex-row sm:gap-6">
         {
           NAV_LINKS.map((link) => (
             <li>
-              <a href={link.href} aria-current={isActive(link.href) ? 'page' : undefined}>
+              <a
+                href={link.href}
+                aria-current={isActive(link.href) ? 'page' : undefined}
+                class="text-ink border-b-[3px] border-transparent py-1 no-underline transition-colors duration-200 hover:text-fucsia aria-[current=page]:border-fucsia aria-[current=page]:font-bold"
+              >
                 {link.label}
               </a>
             </li>
@@ -33,87 +39,11 @@ const isActive = (href: string) => (href === '/' ? path === '/' : path === href 
   </div>
 </header>
 
-<style>
-  .site-header {
-    background: var(--surface-alt);
-    border-radius: 0 0 var(--radius) var(--radius);
-    margin-inline: auto;
-    width: 100%;
-    max-width: var(--container);
-  }
-  .bar {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    flex-wrap: wrap;
-    padding-block: 0.9rem;
-  }
-  .brand {
-    color: var(--brand);
-    font-size: 1.5rem;
-    text-decoration: none;
-  }
-  ul {
-    list-style: none;
-    display: flex;
-    gap: 1.5rem;
-    margin: 0;
-    padding: 0;
-  }
-  nav a {
-    color: var(--text);
-    text-decoration: none;
-    padding-block: 0.25rem;
-    border-bottom: 3px solid transparent;
-    transition: color 0.2s ease, border-color 0.2s ease;
-  }
-  nav a:hover {
-    color: var(--fucsia);
-  }
-  nav a[aria-current='page'] {
-    font-weight: 700;
-    border-color: var(--fucsia);
-  }
-  .menu-toggle {
-    display: none;
-    background: none;
-    border: 1px solid var(--border);
-    border-radius: 0.5rem;
-    padding: 0.5rem;
-    cursor: pointer;
-    flex-direction: column;
-    gap: 4px;
-  }
-  .menu-toggle span {
-    display: block;
-    width: 22px;
-    height: 2px;
-    background: var(--text);
-  }
-  @media (max-width: 640px) {
-    .menu-toggle {
-      display: flex;
-    }
-    nav {
-      display: none;
-      width: 100%;
-      padding-top: 0.75rem;
-    }
-    nav.open {
-      display: block;
-    }
-    ul {
-      flex-direction: column;
-      gap: 0.5rem;
-    }
-  }
-</style>
-
 <script>
   const toggle = document.querySelector<HTMLButtonElement>('.menu-toggle');
   const nav = document.getElementById('site-nav');
   toggle?.addEventListener('click', () => {
-    const open = nav?.classList.toggle('open') ?? false;
+    const open = nav?.toggleAttribute('data-open') ?? false;
     toggle.setAttribute('aria-expanded', String(open));
   });
 </script>
