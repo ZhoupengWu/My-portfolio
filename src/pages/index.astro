@@ -25,7 +25,18 @@ const featured = (await getCollection('projects', ({ data }) => !data.draft && d
       <section class="container-site mt-12">
         <h2>Featured projects</h2>
         <div class="grid grid-cols-[repeat(auto-fill,minmax(18rem,1fr))] gap-6">
-          {featured.map((project) => <ProjectCard project={project} />)}
+          {featured.map(({ id, data }) => (
+            <ProjectCard
+              href={`/projects/${id}`}
+              title={data.title}
+              description={data.description}
+              label={data.category}
+              technologies={data.technologies}
+              cover={data.cover}
+              coverAlt={data.coverAlt}
+              coverFit={data.coverFit}
+            />
+          ))}
         </div>
       </section>
     )

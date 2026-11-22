@@ -4,6 +4,9 @@ description: A full-stack web app that matches students with companies offering 
 date: 2025-11-14
 technologies: [Python, Flask, SQLAlchemy, SQLite, JavaScript, Docker]
 category: Web app
+cover: ../../assets/projects/stagematch.svg
+coverAlt: stageMatch logo
+coverFit: contain
 repo: https://github.com/stageMatch/stageMatch
 featured: true
 ---

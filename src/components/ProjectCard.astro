@@ -1,22 +1,36 @@
 ---
 import { Image } from 'astro:assets';
-import type { CollectionEntry } from 'astro:content';
+import type { ImageMetadata } from 'astro';
 
 interface Props {
-  project: CollectionEntry<'projects'>;
+  href: string;
+  title: string;
+  description: string;
+  /** Small label above the title (category, status...). */
+  label: string;
+  technologies: string[];
+  cover?: ImageMetadata;
+  coverAlt?: string;
+  coverFit?: 'cover' | 'contain';
 }
 
-const { project } = Astro.props;
-const { title, description, cover, coverAlt, category, technologies } = project.data;
+const { href, title, description, label, technologies, cover, coverAlt, coverFit = 'cover' } = Astro.props;
+const fitClass = coverFit === 'contain' ? 'bg-white object-contain p-6' : 'object-cover';
 ---
 
 <article
   class="bg-surface h-full overflow-hidden rounded-card shadow-card transition-transform duration-300 focus-within:-translate-y-2 hover:-translate-y-2"
 >
-  <a class="flex h-full flex-col text-inherit no-underline" href={`/projects/${project.id}`}>
+  <a class="flex h-full flex-col text-inherit no-underline" {href}>
     {
       cover ? (
-        <Image src={cover} alt={coverAlt ?? title} widths={[400, 800]} sizes="(min-width: 64rem) 20rem, 90vw" class="h-[200px] w-full object-cover" />
+        <Image
+          src={cover}
+          alt={coverAlt ?? title}
+          widths={[400, 800]}
+          sizes="(min-width: 64rem) 20rem, 90vw"
+          class:list={['h-[200px] w-full', fitClass]}
+        />
       ) : (
         <div class="bg-accent-soft text-violaccio grid h-[200px] place-items-center text-6xl" aria-hidden="true">
           {title.charAt(0)}
@@ -24,7 +38,7 @@ const { title, description, cover, coverAlt, category, technologies } = project.
       )
     }
     <div class="p-5">
-      <p class="text-muted mb-1 text-sm tracking-wider uppercase">{category}</p>
+      <p class="text-muted mb-1 text-sm tracking-wider uppercase">{label}</p>
       <h3 class="mb-2">{title}</h3>
       <p class="text-base">{description}</p>
       <ul class="m-0 flex list-none flex-wrap gap-1.5 p-0">
