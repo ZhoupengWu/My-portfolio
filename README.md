@@ -58,3 +58,7 @@ Markdown body…
 ## Deploy
 
 Import the repository in Vercel: the Astro preset is detected automatically (build command `npm run build`, output `dist`).
+
+## License
+
+All rights reserved. See [LICENSE.md](./LICENSE.md).

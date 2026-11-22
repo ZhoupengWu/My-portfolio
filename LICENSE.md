@@ -1,22 +1,10 @@
-# Wu Zhoupeng License 1.0
+# Copyright
 
-# Copyright © 2024-2025 Wu Zhoupeng
+Copyright © 2024-2026 Wu Zhoupeng. All rights reserved.
 
-### Permission is hereby granted to anyone to copy, modify, use and distribute this work for any purpose, provided that clear credit is given to the original author. The attribution must include the author's name and, if possible, a link to the original project.
+The source code, text, images and other content of this repository may not be copied, modified, distributed or used, in whole or in part, without the prior written permission of the author.
 
-## Restrictions
-#### • The author's name may not be used for promotional or advertising purposes without written permission.
-#### • Commercial use of the work is permitted only with the express permission of the author.
-#### • The work may not be modified or used in a way that ridicules, disparages or discredits the original author.
+## Third-party material
 
-## Disclaimer
-#### THE WORK IS PROVIDED "AS IS" WITHOUT WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE, AND NON-INFRINGEMENT. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR ANY CLAIMS, DAMAGES OR OTHER LIABILITIES ARISING OUT OF THE WORK OR ITS USE.
-
-## Modifications
-#### All modifications must be clearly labelled as such and distributed under the terms of this license.
-
-## Revocation
-#### The author reserves the right to revoke this license at any time, effective for future distributions of the work.
-
-## About this license
-#### The original author reserves the right, at his sole discretion, to update the terms of this license or to adopt a new version of the license at any time, and to apply the new terms to future distributions of the work.
+- The **Sour Gummy** font files in `src/assets/fonts/` are licensed under the SIL Open Font License 1.1. See `src/assets/fonts/LICENSE-SourGummy-OFL.txt`.
+- Dependencies installed from npm are distributed under their own licenses.
