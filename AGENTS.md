@@ -23,7 +23,7 @@ Consult these guides before working on related tasks:
 
 ## Project overview
 
-Personal portfolio of Wu Zhoupeng, a static Astro site deployed on Vercel. Site language: English only. The previous plain-HTML site lives in `tmp/` as migration reference and is deleted once the migration is complete; do not build on it.
+Personal portfolio of Wu Zhoupeng, a static Astro site deployed on Vercel. Site language: English only.
 
 ### Layout
 
