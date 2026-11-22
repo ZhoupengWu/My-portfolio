@@ -30,12 +30,17 @@ Personal portfolio of Wu Zhoupeng, a static Astro site deployed on Vercel. Site 
 - `src/layouts/Base.astro`: shared `<head>`, header and footer. Every page wraps its content in it.
 - `src/pages/`: one file per route; `projects/[slug].astro` renders the content collection.
 - `src/content/projects/*.md`: one Markdown file per project, validated by `src/content.config.ts`. See the README for the frontmatter fields.
+- `src/content/education/*.md`: repositories used to learn a language or tool (work in progress by nature), rendered at `/education`.
+- `src/data/skills.ts`: skill groups for `/skills`; each skill is linked automatically to the projects and education entries whose `technologies` contain its name.
+- `src/components/`: `ProjectCard` (cards for both collections) and `EntryDetail` (shared detail layout).
 - `src/consts.ts`: site title, nav links, socials. A new page needs a file in `src/pages/` plus an entry in `NAV_LINKS` if it belongs in the menu.
 - `src/styles/global.css`: Tailwind v4 entry point with the design tokens.
 - `src/assets/`: images and the self-hosted Sour Gummy font files (via `fontProviders.local()` in `astro.config.mjs`).
+- `CLAUDE.md` is the source file for these instructions; `AGENTS.md` is a symlink to it.
 
 ### Conventions
 
+- For any UI work, follow the design system in `.claude/skills/design/SKILL.md`.
 - Style with Tailwind utility classes; no scoped `<style>` blocks unless a utility cannot express it.
 - Use the semantic color tokens (`bg-bg`, `bg-surface`, `text-ink`, `text-muted`, `text-h1`...). They switch between light and dark automatically, so avoid `dark:` variants and raw hex values.
 - The brand palette tokens (`verdetto`, `fucsia`, `giallogno`, `violaccio`, `rosso`, `blu`...) are fixed and come from the original site.

@@ -10,8 +10,10 @@ src/
 ├── assets/projects/     # project cover images
 ├── components/          # Header, Footer, ProjectCard
 ├── content/projects/    # one Markdown file per project
+├── content/education/   # learning repos (Rust, Go...), shown at /education
+├── data/skills.ts       # skill groups for /skills
 ├── layouts/Base.astro   # shared <head>, header and footer
-├── pages/               # index, about, contact, 404, projects/ and projects/[slug]
+├── pages/               # index, about, skills, contact, 404, projects/ and education/
 ├── styles/global.css    # Tailwind entry point: design tokens (colors, light/dark theme) and base styles
 ├── consts.ts            # site title, nav links, socials
 └── content.config.ts    # schema of the projects collection
@@ -45,6 +47,10 @@ draft: false               # true hides it everywhere
 
 Markdown body…
 ```
+
+## Adding an education repo
+
+Create `src/content/education/<slug>.md` with `title`, `description`, `date` (when you started), `technologies`, `status` (`in-progress` or `completed`) and `repo`. It appears at `/education`, and its technologies show up on `/skills` marked as "Learning" until a project uses them too.
 
 ## Commands
 
