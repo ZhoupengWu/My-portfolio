@@ -9,43 +9,20 @@ const projects = (await getCollection('projects', ({ data }) => !data.draft)).so
 ---
 
 <Base title="Projects" description="Some projects made by Wu Zhoupeng">
-  <section class="container">
-    <header class="hero">
-      <h1>Projects</h1>
-      <p>Some things I've built.</p>
+  <section class="container-site">
+    <header class="bg-accent-soft mt-12 mb-10 rounded-card px-6 py-10 text-center">
+      <h1 class="mb-1">Projects</h1>
+      <p class="mb-0">Some things I've built.</p>
     </header>
 
     {
       projects.length > 0 ? (
-        <div class="grid">
+        <div class="grid grid-cols-[repeat(auto-fill,minmax(18rem,1fr))] gap-6">
           {projects.map((project) => <ProjectCard project={project} />)}
         </div>
       ) : (
-        <p class="empty">Projects are coming soon.</p>
+        <p class="text-muted text-center">Projects are coming soon.</p>
       )
     }
   </section>
 </Base>
-
-<style>
-  .hero {
-    margin-block: 3rem 2.5rem;
-    padding: 2.5rem 1.5rem;
-    text-align: center;
-    border-radius: var(--radius);
-    background: var(--accent-soft);
-  }
-  .hero h1,
-  .hero p {
-    margin-bottom: 0.25rem;
-  }
-  .grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(18rem, 1fr));
-    gap: 1.5rem;
-  }
-  .empty {
-    text-align: center;
-    color: var(--text-muted);
-  }
-</style>

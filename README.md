@@ -1,17 +1,18 @@
 # Wu Zhoupeng — Portfolio
 
-Personal portfolio built with [Astro](https://astro.build). Static output, deployed on Vercel.
+Personal portfolio built with [Astro](https://astro.build) and [Tailwind CSS](https://tailwindcss.com). Static output, deployed on Vercel.
 
 ## Structure
 
 ```text
 src/
 ├── assets/fonts/        # Sour Gummy (self-hosted, loaded via Astro's Fonts API)
+├── assets/projects/     # project cover images
 ├── components/          # Header, Footer, ProjectCard
 ├── content/projects/    # one Markdown file per project
 ├── layouts/Base.astro   # shared <head>, header and footer
 ├── pages/               # index, about, contact, 404, projects/ and projects/[slug]
-├── styles/global.css    # design tokens (colors, light/dark theme) and base styles
+├── styles/global.css    # Tailwind entry point: design tokens (colors, light/dark theme) and base styles
 ├── consts.ts            # site title, nav links, socials
 └── content.config.ts    # schema of the projects collection
 ```
