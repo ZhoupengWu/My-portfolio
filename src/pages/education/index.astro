@@ -1,0 +1,40 @@
+---
+import { getCollection } from 'astro:content';
+import Base from '../../layouts/Base.astro';
+import ProjectCard from '../../components/ProjectCard.astro';
+import { STATUS_LABELS } from '../../utils';
+
+const entries = (await getCollection('education', ({ data }) => !data.draft)).sort(
+  (a, b) => b.data.date.valueOf() - a.data.date.valueOf(),
+);
+---
+
+<Base title="Education" description="Repositories where Wu Zhoupeng learns new languages and tools">
+  <section class="container-site">
+    <header class="bg-accent-soft mt-12 mb-10 rounded-card px-6 py-10 text-center">
+      <h1 class="mb-1">Education</h1>
+      <p class="mb-0">Repositories where I learn new languages and tools. They are works in progress and grow as I study.</p>
+    </header>
+
+    {
+      entries.length > 0 ? (
+        <div class="grid grid-cols-[repeat(auto-fill,minmax(18rem,1fr))] gap-6">
+          {entries.map(({ id, data }) => (
+            <ProjectCard
+              href={`/education/${id}`}
+              title={data.title}
+              description={data.description}
+              label={STATUS_LABELS[data.status]}
+              technologies={data.technologies}
+              cover={data.cover}
+              coverAlt={data.coverAlt}
+              coverFit={data.coverFit}
+            />
+          ))}
+        </div>
+      ) : (
+        <p class="text-muted text-center">Nothing here yet.</p>
+      )
+    }
+  </section>
+</Base>

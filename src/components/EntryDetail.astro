@@ -1,0 +1,64 @@
+---
+import { Image } from 'astro:assets';
+import type { ImageMetadata } from 'astro';
+
+interface Props {
+  title: string;
+  backHref: string;
+  backLabel: string;
+  /** Rows of the "details" sidebar. */
+  details: { label: string; value: string }[];
+  cover?: ImageMetadata;
+  coverAlt?: string;
+  coverFit?: 'cover' | 'contain';
+  repo?: string;
+  demo?: string;
+}
+
+const { title, backHref, backLabel, details, cover, coverAlt, coverFit = 'cover', repo, demo } = Astro.props;
+const fitClass = coverFit === 'contain' ? 'bg-white object-contain p-8' : '';
+---
+
+<article class="container-site pt-8">
+  <p><a href={backHref}>&larr; {backLabel}</a></p>
+  <h1>{title}</h1>
+
+  <div class="grid gap-8 md:grid-cols-[2fr_1fr]">
+    <div>
+      {
+        cover && (
+          <Image
+            src={cover}
+            alt={coverAlt ?? title}
+            widths={[600, 1000]}
+            sizes="(min-width: 48rem) 40rem, 100vw"
+            loading="eager"
+            class:list={['mb-6 w-full rounded-card', fitClass]}
+          />
+        )
+      }
+      <div
+        class="[&_a]:underline [&_code]:bg-surface-alt [&_code]:rounded [&_code]:px-1.5 [&_h2]:mt-6 [&_h3]:mt-5 [&_li]:mb-1 [&_ol]:list-decimal [&_ol]:pl-5 [&_ul]:list-disc [&_ul]:pl-5"
+      >
+        <slot />
+      </div>
+    </div>
+    <aside>
+      <h3>Details</h3>
+      <dl>
+        {
+          details.map((d) => (
+            <>
+              <dt class="font-bold">{d.label}</dt>
+              <dd class="text-muted mb-3">{d.value}</dd>
+            </>
+          ))
+        }
+      </dl>
+      <p class="flex flex-wrap gap-3">
+        {repo && <a class="btn" href={repo} target="_blank" rel="noopener noreferrer">View on GitHub</a>}
+        {demo && <a class="btn btn-outline" href={demo} target="_blank" rel="noopener noreferrer">Live demo</a>}
+      </p>
+    </aside>
+  </div>
+</article>
