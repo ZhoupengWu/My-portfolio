@@ -1,0 +1,87 @@
+---
+import { getCollection, render } from 'astro:content';
+import { Image } from 'astro:assets';
+import Base from '../../layouts/Base.astro';
+
+export async function getStaticPaths() {
+  const projects = await getCollection('projects', ({ data }) => !data.draft);
+  return projects.map((project) => ({ params: { slug: project.id }, props: { project } }));
+}
+
+const { project } = Astro.props;
+const { title, description, date, endDate, technologies, category, cover, coverAlt, repo, demo } = project.data;
+const { Content } = await render(project);
+
+const fmt = (d: Date) => d.toLocaleDateString('en-GB', { month: 'short', year: 'numeric', timeZone: 'UTC' });
+const period = endDate ? `${fmt(date)} – ${fmt(endDate)}` : fmt(date);
+---
+
+<Base title={title} description={description}>
+  <article class="container project">
+    <p><a href="/projects">&larr; All projects</a></p>
+    <h1>{title}</h1>
+
+    <div class="layout">
+      <div>
+        {cover && <Image src={cover} alt={coverAlt ?? title} widths={[600, 1000]} sizes="(min-width: 48rem) 40rem, 100vw" class="cover" />}
+        <div class="prose"><Content /></div>
+      </div>
+      <aside>
+        <h3>Project details</h3>
+        <dl>
+          <dt>Date</dt>
+          <dd>{period}</dd>
+          <dt>Technologies</dt>
+          <dd>{technologies.join(', ')}</dd>
+          <dt>Category</dt>
+          <dd>{category}</dd>
+        </dl>
+        <p class="links">
+          {repo && <a class="btn" href={repo} target="_blank" rel="noopener noreferrer">View on GitHub</a>}
+          {demo && <a class="btn btn-outline" href={demo} target="_blank" rel="noopener noreferrer">Live demo</a>}
+        </p>
+      </aside>
+    </div>
+  </article>
+</Base>
+
+<style>
+  .project {
+    padding-top: 2rem;
+  }
+  .layout {
+    display: grid;
+    gap: 2rem;
+  }
+  @media (min-width: 48rem) {
+    .layout {
+      grid-template-columns: 2fr 1fr;
+    }
+  }
+  .cover {
+    border-radius: var(--radius);
+    margin-bottom: 1.5rem;
+    width: 100%;
+  }
+  dt {
+    font-weight: 700;
+  }
+  dd {
+    margin: 0 0 0.75rem;
+    color: var(--text-muted);
+  }
+  .links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+  }
+  .prose :global(h2) {
+    margin-top: 1.5rem;
+  }
+  .prose :global(h3) {
+    margin-top: 1.25rem;
+  }
+  .prose :global(ul) {
+    padding-left: 1.25rem;
+  }
+</style>

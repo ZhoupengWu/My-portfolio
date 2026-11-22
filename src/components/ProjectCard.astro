@@ -1,0 +1,95 @@
+---
+import { Image } from 'astro:assets';
+import type { CollectionEntry } from 'astro:content';
+
+interface Props {
+  project: CollectionEntry<'projects'>;
+}
+
+const { project } = Astro.props;
+const { title, description, cover, coverAlt, category, technologies } = project.data;
+---
+
+<article class="card">
+  <a class="card-link" href={`/projects/${project.id}`}>
+    {
+      cover ? (
+        <Image src={cover} alt={coverAlt ?? title} widths={[400, 800]} sizes="(min-width: 64rem) 20rem, 90vw" class="cover" />
+      ) : (
+        <div class="cover placeholder" aria-hidden="true">{title.charAt(0)}</div>
+      )
+    }
+    <div class="body">
+      <p class="category">{category}</p>
+      <h3>{title}</h3>
+      <p class="desc">{description}</p>
+      <ul class="tags">
+        {technologies.map((t) => <li>{t}</li>)}
+      </ul>
+    </div>
+  </a>
+</article>
+
+<style>
+  .card {
+    background: var(--surface);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    overflow: hidden;
+    transition: transform 0.3s ease;
+    height: 100%;
+  }
+  .card:hover,
+  .card:focus-within {
+    transform: translateY(-8px);
+  }
+  .card-link {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    color: inherit;
+    text-decoration: none;
+  }
+  .cover {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+  }
+  .placeholder {
+    display: grid;
+    place-items: center;
+    background: var(--accent-soft);
+    color: var(--violaccio);
+    font-size: 4rem;
+  }
+  .body {
+    padding: 1.25rem;
+  }
+  .category {
+    margin: 0 0 0.25rem;
+    color: var(--text-muted);
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+  h3 {
+    margin-bottom: 0.5rem;
+  }
+  .desc {
+    font-size: 1rem;
+  }
+  .tags {
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+    margin: 0;
+    padding: 0;
+  }
+  .tags li {
+    font-size: 0.8rem;
+    padding: 0.15rem 0.6rem;
+    border-radius: 999px;
+    background: var(--surface-alt);
+  }
+</style>
