@@ -62,10 +62,10 @@ cp .env.example .env
 
 | Variable               | Used for                          |
 | :--------------------- | :-------------------------------- |
-| `PUBLIC_LOCATION`      | Location on Home, About, Contact  |
-| `PUBLIC_GITHUB_URL`    | GitHub link in footer and Contact |
-| `PUBLIC_INSTAGRAM_URL` | Instagram link                    |
-| `PUBLIC_TIKTOK_URL`    | TikTok link                       |
+| `PUBLIC_LOCATION`      | Location on About and Contact     |
+| `PUBLIC_GITHUB_URL`    | GitHub link in the footer         |
+| `PUBLIC_INSTAGRAM_URL` | Instagram link in the footer      |
+| `PUBLIC_TIKTOK_URL`    | TikTok link in the footer         |
 
 All of them are optional: a missing variable hides the related content instead of breaking the build. `.env` is git-ignored, so on Vercel add the same variables in **Project Settings → Environment Variables**. The values still end up in the generated HTML, so only use public information.
 
