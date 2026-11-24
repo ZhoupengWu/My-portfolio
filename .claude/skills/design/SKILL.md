@@ -37,7 +37,7 @@ The palette is switched with `data-theme="light|dark"` on `<html>`. An inline sc
 ## Layout
 
 - Wrap page content in `container-site` (max width 64rem, side padding). The header is already constrained to the same width.
-- Pages render inside `Base.astro`, which provides the head, header, footer and a skip link. The footer is pushed to the bottom with a flex column on `body`.
+- Pages render inside `Base.astro`, which provides the head, header, footer and a skip link. The home hero is just the eyebrow "Hi, I'm", the `h1` "Wu" and two buttons. The footer is pushed to the bottom with a flex column on `body`.
 - Card grids: `grid grid-cols-[repeat(auto-fill,minmax(18rem,1fr))] gap-6`.
 - Two-column detail layouts: `grid gap-8 md:grid-cols-[2fr_1fr]`.
 - Vertical rhythm: sections are separated with `mt-12`/`mt-16`; page headers use `mt-12 mb-10`.
@@ -53,6 +53,7 @@ The palette is switched with `data-theme="light|dark"` on `<html>`. An inline sc
 - **Pills** (technology tags): `bg-surface-alt rounded-full px-2.5 py-0.5 text-xs`.
 - **Surface panel** (Skills groups): `bg-surface rounded-card p-6 shadow-card`.
 - **Header** (`Header.astro`): a sticky, blurred pill (`bg-surface/85 backdrop-blur`, `rounded-full` from `lg`, `rounded-3xl` below) with the `Logo` and the name on the left, links on the right and the theme toggle. The current page is marked with `aria-current="page"` and shown as an `bg-accent-soft` pill in bold. Below `lg` the links collapse into a menu opened by a round button; Escape and choosing a link close it. New pages are added to `NAV_LINKS` in `src/consts.ts`.
+- **Footer** (`Footer.astro`): a `bg-surface` card with `rounded-card`, a border and `shadow-card`, aligned with the header width. Top row: logo, name and location (when set) on the left, page links as inline pills on the right. Bottom row, below a `border-line` rule: copyright and credits on the left, social links as outlined pills on the right. Both rows stack on mobile. Keep it compact; do not turn the page links into a tall list.
 - **Logo** (`Logo.astro`): the "ZP" monogram, same drawing as `public/favicon.svg`: cream rounded strokes on an indigo rounded square, with a thin `ring-line` outline so it stays visible in dark mode.
 - **Theme toggle** (`ThemeToggle.astro`): a round `size-10` icon button (moon in light, sun in dark) whose `aria-label` always names the action. It disables transitions for a moment so every color changes at once.
 - **Icon buttons**: `border-line bg-surface-alt text-ink size-10 rounded-full border` with `hover:bg-accent-soft`.
