@@ -2,6 +2,7 @@
 import { getCollection } from 'astro:content';
 import Base from '../../layouts/Base.astro';
 import ProjectCard from '../../components/ProjectCard.astro';
+import { EAGER_COVERS_LIMIT } from '../../consts';
 
 const projects = (await getCollection('projects', ({ data }) => !data.draft)).sort(
   (a, b) => b.data.date.valueOf() - a.data.date.valueOf(),
@@ -28,7 +29,7 @@ const projects = (await getCollection('projects', ({ data }) => !data.draft)).so
               cover={data.cover}
               coverAlt={data.coverAlt}
               coverFit={data.coverFit}
-              eager={i < 3}
+              eager={i < EAGER_COVERS_LIMIT}
             />
           ))}
         </div>

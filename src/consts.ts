@@ -12,8 +12,14 @@ export const NAV_LINKS = [
   { href: '/contact', label: 'Contact' },
 ] as const;
 
-/** First year of the site, used in the footer copyright. */
-export const START_YEAR = 2025;
+/**
+ * Card lists with up to this many entries load every cover eagerly. The lists are short and the
+ * covers small, and on tall screens more than the first row is above the fold.
+ */
+export const EAGER_COVERS_LIMIT = 6;
+
+/** Years shown in the footer copyright. Update it by hand. */
+export const COPYRIGHT_YEARS = '2025-2026';
 
 // Personal details come from `.env` (see `.env.example`); anything unset is left out.
 export const LOCATION: string | undefined = PUBLIC_LOCATION;

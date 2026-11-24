@@ -1,13 +1,10 @@
 ---
-import { SITE_TITLE, SOCIALS, START_YEAR } from '../consts';
-
-const year = new Date().getFullYear();
-const years = year > START_YEAR ? `${START_YEAR}-${year}` : `${START_YEAR}`;
+import { COPYRIGHT_YEARS, SITE_TITLE, SOCIALS } from '../consts';
 ---
 
 <footer class="border-line text-muted mt-16 border-t py-6">
   <div class="container-site flex flex-wrap items-center justify-between gap-3">
-    <p class="m-0">&copy; {years} {SITE_TITLE}</p>
+    <p class="m-0">&copy; {COPYRIGHT_YEARS} {SITE_TITLE}</p>
     {
       SOCIALS.length > 0 && (
         <ul class="m-0 flex list-none gap-5 p-0">
