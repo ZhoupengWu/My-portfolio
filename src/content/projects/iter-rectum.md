@@ -8,6 +8,7 @@ category: Game
 cover: ../../assets/projects/iter-rectum.jpg
 coverAlt: Home page of Iter Rectum with the title in large serif letters on a dark blue background
 repo: https://github.com/ZhoupengWu/iter-rectum
+demo: https://zhoupengwu.github.io/iter-rectum/
 featured: true
 ---
 
