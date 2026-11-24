@@ -1,9 +1,6 @@
 ---
 import Base from '../layouts/Base.astro';
-import { LOCATION, SOCIALS } from '../consts';
-
-const linkClass = 'text-link text-xl font-bold no-underline transition-colors duration-200 hover:text-fucsia';
-const blocks = Number(Boolean(LOCATION)) + Number(SOCIALS.length > 0);
+import { LOCATION } from '../consts';
 ---
 
 <Base title="Contact" description="How to reach Wu Zhoupeng">
@@ -12,31 +9,13 @@ const blocks = Number(Boolean(LOCATION)) + Number(SOCIALS.length > 0);
       <h3 class="mb-1">Contact</h3>
       <h1>How to reach me</h1>
     </div>
-    <div class:list={['grid gap-8 text-center', blocks > 1 && 'sm:grid-cols-2']}>
-      {
-        LOCATION && (
-          <div>
-            <h2>Location</h2>
-            <p class={linkClass}>{LOCATION}</p>
-          </div>
-        )
-      }
-      {
-        SOCIALS.length > 0 && (
-          <div>
-            <h2>Social</h2>
-            <ul class="m-0 list-none p-0">
-              {SOCIALS.map((s) => (
-                <li>
-                  <a class={linkClass} href={s.href} rel="noopener noreferrer" target="_blank">
-                    {s.label}
-                  </a>
-                </li>
-              ))}
-            </ul>
-          </div>
-        )
-      }
-    </div>
+    {
+      LOCATION && (
+        <div class="text-center">
+          <h2>Location</h2>
+          <p class="text-link text-xl font-bold">{LOCATION}</p>
+        </div>
+      )
+    }
   </section>
 </Base>
