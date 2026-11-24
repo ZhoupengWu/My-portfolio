@@ -34,7 +34,7 @@ description: One-line summary shown on the card.
 date: 2025-01-01
 endDate: 2025-02-01        # optional
 technologies: [Python, PostgreSQL]
-category: Bot
+category: Bot              # also becomes a filter chip on /projects
 cover: ../../assets/projects/my-project.png   # optional
 coverAlt: Screenshot of My Project             # optional
 repo: https://github.com/user/repo             # optional

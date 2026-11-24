@@ -45,8 +45,10 @@ The palette is switched with `data-theme="light|dark"` on `<html>`. An inline sc
 
 ## Components and patterns
 
-- **Page header band** (Projects, Education, Skills): `header.bg-accent-soft.mt-12.mb-10.rounded-card.px-6.py-10.text-center` with an `h1` and a one-line `p`.
-- **Card** (`ProjectCard.astro`): white surface, `rounded-card`, `shadow-card`, lifts with `-translate-y-2` on hover and focus-within. Takes `href`, `title`, `description`, `label`, `technologies`, and an optional cover. Without a cover it shows the initial letter on `bg-accent-soft`.
+- **Page header band** (Education, Skills): `header.bg-accent-soft.mt-12.mb-10.rounded-card.px-6.py-10.text-center` with an `h1` and a one-line `p`.
+- **Projects page** (`projects/index.astro` with `ProjectRow.astro`): a plain `h1` with a muted line, a row of filter chips, then one row per project with a `gap-16` rhythm. Each row is a two-column grid on `md` (a 16:10 framed cover next to category and period, the `h2` title, description, technology pills and buttons for Details, GitHub and Live demo); the cover side alternates left and right, and everything stacks on mobile. Covers use `coverFit` as in cards. Categories come from the projects' `category` field.
+- **Filter chips**: `rounded-full border` buttons with `aria-pressed`; the pressed chip is an `accent-soft` pill like the active nav link, with the count in muted text. The group is `hidden` in the HTML and shown by script, so without JavaScript all projects are listed. The choice is kept in the URL hash and announced through an `aria-live` region.
+- **Card** (`ProjectCard.astro`, used on Home and Education): white surface, `rounded-card`, `shadow-card`, lifts with `-translate-y-2` on hover and focus-within. Takes `href`, `title`, `description`, `label`, `technologies`, and an optional cover. Without a cover it shows the initial letter on `bg-accent-soft`.
 - **Cover images**: `coverFit: cover` crops to 200px height; `coverFit: contain` puts a logo on white with padding. Images live in `src/assets/projects/` and go through `astro:assets`.
 - **Detail page** (`EntryDetail.astro`): back link, `h1`, cover, Markdown body on the left, a "Details" sidebar and the GitHub/demo buttons on the right.
 - **Buttons**: `.btn` (filled indigo, pink on hover) and `.btn-outline`. Both are pill-shaped and lift slightly on hover.

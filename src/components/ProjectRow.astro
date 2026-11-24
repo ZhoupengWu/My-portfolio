@@ -1,0 +1,67 @@
+---
+import { Image } from 'astro:assets';
+import type { ImageMetadata } from 'astro';
+
+interface Props {
+  href: string;
+  title: string;
+  description: string;
+  category: string;
+  /** Slug of the category, used by the filter on the Projects page. */
+  categorySlug: string;
+  period: string;
+  technologies: string[];
+  cover?: ImageMetadata;
+  coverAlt?: string;
+  coverFit?: 'cover' | 'contain';
+  repo?: string;
+  demo?: string;
+  /** Put the image on the right on wide screens. */
+  reverse?: boolean;
+  /** Load the cover right away; use it for rows that are above the fold. */
+  eager?: boolean;
+}
+
+const { href, title, description, category, categorySlug, period, technologies, cover, coverAlt, coverFit = 'cover', repo, demo, reverse = false, eager = false } = Astro.props;
+const fitClass = coverFit === 'contain' ? 'bg-white object-contain p-8' : 'object-cover';
+---
+
+<article data-category={categorySlug} class="grid items-center gap-6 md:grid-cols-2 md:gap-10">
+  <a
+    {href}
+    tabindex="-1"
+    aria-hidden="true"
+    class:list={['border-line bg-surface-alt shadow-card block aspect-[16/10] overflow-hidden rounded-card border transition-transform duration-300 hover:-translate-y-1', reverse && 'md:order-2']}
+  >
+    {
+      cover ? (
+        <Image
+          src={cover}
+          alt=""
+          widths={[480, 800, 1000]}
+          sizes="(min-width: 48rem) 32rem, 90vw"
+          loading={eager ? 'eager' : 'lazy'}
+          class:list={['size-full', fitClass]}
+        />
+      ) : (
+        <div class="text-violaccio bg-accent-soft grid size-full place-items-center text-7xl">{title.charAt(0)}</div>
+      )
+    }
+  </a>
+
+  <div>
+    <p class="text-muted mb-1 text-sm tracking-wider uppercase">{category} · {period}</p>
+    <h2 class="mb-3">
+      <a {href} class="text-inherit no-underline transition-colors duration-200 hover:text-fucsia">{title}</a>
+    </h2>
+    <p>{description}</p>
+    <ul class="m-0 mb-6 flex list-none flex-wrap gap-1.5 p-0">
+      {technologies.map((t) => <li class="bg-surface-alt rounded-full px-2.5 py-0.5 text-xs">{t}</li>)}
+    </ul>
+    <p class="m-0 flex flex-wrap gap-3">
+      <a class="btn" {href}>Details<span class="sr-only"> of {title}</span></a>
+      {repo && <a class="btn btn-outline" href={repo} target="_blank" rel="noopener noreferrer">GitHub<span class="sr-only"> repository of {title} (opens in a new tab)</span></a>}
+      {demo && <a class="btn btn-outline" href={demo} target="_blank" rel="noopener noreferrer">Live demo<span class="sr-only"> of {title} (opens in a new tab)</span></a>}
+    </p>
+  </div>
+</article>
