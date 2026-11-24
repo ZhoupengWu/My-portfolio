@@ -1,13 +1,26 @@
 ---
+import { Image } from 'astro:assets';
 import Base from '../layouts/Base.astro';
+import profile from '../assets/profile.jpg';
 import { LOCATION } from '../consts';
 ---
 
 <Base title="About" description="About Wu Zhoupeng">
-  <section class="container-site pt-16">
-    <h1>I'm Wu.</h1>
-    <p class="max-w-2xl text-[1.35rem]">
-      I'm a developer from {LOCATION}. I enjoy turning ideas into small, working projects.
-    </p>
+  <section class="container-site flex flex-col items-center gap-8 pt-16 sm:flex-row">
+    <!-- The source image is 150x150, so keep it at that size to stay sharp. -->
+    <Image
+      src={profile}
+      alt="A view over the rooftops of the city from a hill"
+      width={150}
+      height={150}
+      loading="eager"
+      class="shadow-card size-[150px] shrink-0 rounded-card object-cover"
+    />
+    <div>
+      <h1>I'm Wu.</h1>
+      <p class="max-w-2xl text-[1.35rem]">
+        {LOCATION ? `I'm a developer from ${LOCATION}.` : "I'm a developer."} I enjoy turning ideas into small, working projects.
+      </p>
+    </div>
   </section>
 </Base>

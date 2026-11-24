@@ -19,7 +19,7 @@ const entries = (await getCollection('education', ({ data }) => !data.draft)).so
     {
       entries.length > 0 ? (
         <div class="grid grid-cols-[repeat(auto-fill,minmax(18rem,1fr))] gap-6">
-          {entries.map(({ id, data }) => (
+          {entries.map(({ id, data }, i) => (
             <ProjectCard
               href={`/education/${id}`}
               title={data.title}
@@ -29,6 +29,7 @@ const entries = (await getCollection('education', ({ data }) => !data.draft)).so
               cover={data.cover}
               coverAlt={data.coverAlt}
               coverFit={data.coverFit}
+              eager={i < 3}
             />
           ))}
         </div>
