@@ -1,41 +1,109 @@
 ---
 import { getCollection } from 'astro:content';
 import Base from '../../layouts/Base.astro';
-import ProjectCard from '../../components/ProjectCard.astro';
+import ProjectRow from '../../components/ProjectRow.astro';
 import { EAGER_COVERS_LIMIT } from '../../consts';
+import { formatPeriod } from '../../utils';
 
 const projects = (await getCollection('projects', ({ data }) => !data.draft)).sort(
   (a, b) => b.data.date.valueOf() - a.data.date.valueOf(),
 );
+
+const slugify = (s: string) => s.toLowerCase().trim().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+
+// Categories in order of first appearance, with how many projects each has.
+const categories = new Map<string, { label: string; count: number }>();
+for (const { data } of projects) {
+  const slug = slugify(data.category);
+  const entry = categories.get(slug) ?? { label: data.category, count: 0 };
+  entry.count += 1;
+  categories.set(slug, entry);
+}
+
+const chipClass =
+  'border-line text-ink hover:bg-surface-alt aria-pressed:bg-accent-soft aria-pressed:border-transparent aria-pressed:font-bold cursor-pointer rounded-full border px-4 py-1.5 text-base transition-colors duration-200';
 ---
 
 <Base title="Projects" description="Some projects made by Wu Zhoupeng">
   <section class="container-site">
-    <header class="bg-accent-soft mt-12 mb-10 rounded-card px-6 py-10 text-center">
-      <h1 class="mb-1">Projects</h1>
-      <p class="mb-0">Some things I've built.</p>
+    <header class="mt-12 mb-8">
+      <h1 class="mb-2">Projects</h1>
+      <p class="text-muted m-0 text-xl">Some things I've built.</p>
     </header>
 
     {
       projects.length > 0 ? (
-        <div class="grid grid-cols-[repeat(auto-fill,minmax(18rem,1fr))] gap-6">
-          {projects.map(({ id, data }, i) => (
-            <ProjectCard
-              href={`/projects/${id}`}
-              title={data.title}
-              description={data.description}
-              label={data.category}
-              technologies={data.technologies}
-              cover={data.cover}
-              coverAlt={data.coverAlt}
-              coverFit={data.coverFit}
-              eager={i < EAGER_COVERS_LIMIT}
-            />
-          ))}
-        </div>
+        <>
+          {/* Shown by the script below; without JavaScript every project is listed and there is no filter. */}
+          <div id="project-filters" hidden role="group" aria-label="Filter projects by category" class="mb-10 flex flex-wrap gap-2">
+            <button type="button" data-filter="all" aria-pressed="true" class={chipClass}>
+              All <span class="text-muted font-normal">{projects.length}</span>
+            </button>
+            {[...categories].map(([slug, { label, count }]) => (
+              <button type="button" data-filter={slug} aria-pressed="false" class={chipClass}>
+                {label} <span class="text-muted font-normal">{count}</span>
+              </button>
+            ))}
+          </div>
+          <p id="project-filter-status" class="sr-only" aria-live="polite" />
+
+          <div id="project-list" class="flex flex-col gap-16">
+            {projects.map(({ id, data }, i) => (
+              <ProjectRow
+                href={`/projects/${id}`}
+                title={data.title}
+                description={data.description}
+                category={data.category}
+                categorySlug={slugify(data.category)}
+                period={formatPeriod(data.date, data.endDate)}
+                technologies={data.technologies}
+                cover={data.cover}
+                coverAlt={data.coverAlt}
+                coverFit={data.coverFit}
+                repo={data.repo}
+                demo={data.demo}
+                reverse={i % 2 === 1}
+                eager={i < EAGER_COVERS_LIMIT}
+              />
+            ))}
+          </div>
+        </>
       ) : (
         <p class="text-muted text-center">Projects are coming soon.</p>
       )
     }
   </section>
 </Base>
+
+<script>
+  const filters = document.getElementById('project-filters');
+  const status = document.getElementById('project-filter-status');
+  const buttons = filters ? [...filters.querySelectorAll<HTMLButtonElement>('[data-filter]')] : [];
+  const rows = [...document.querySelectorAll<HTMLElement>('#project-list [data-category]')];
+
+  const apply = (slug: string) => {
+    let shown = 0;
+    for (const row of rows) {
+      const visible = slug === 'all' || row.dataset.category === slug;
+      row.hidden = !visible;
+      if (visible) shown += 1;
+    }
+    for (const button of buttons) button.setAttribute('aria-pressed', String(button.dataset.filter === slug));
+    if (status) status.textContent = `Showing ${shown} ${shown === 1 ? 'project' : 'projects'}`;
+  };
+
+  if (filters) {
+    filters.hidden = false;
+    for (const button of buttons) {
+      button.addEventListener('click', () => {
+        const slug = button.dataset.filter ?? 'all';
+        apply(slug);
+        // Keep the choice in the URL so a filtered view can be shared and survives a reload.
+        history.replaceState(null, '', slug === 'all' ? location.pathname : `#${slug}`);
+      });
+    }
+    const fromUrl = location.hash.slice(1);
+    apply(buttons.some((b) => b.dataset.filter === fromUrl) ? fromUrl : 'all');
+    if (status) status.textContent = '';
+  }
+</script>
