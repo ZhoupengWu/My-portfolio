@@ -30,6 +30,19 @@ const canonical = Astro.site ? new URL(Astro.url.pathname, Astro.site) : undefin
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="icon" href="/favicon.ico" sizes="32x32" />
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <script is:inline>
+      // Set the theme before first paint to avoid a flash: saved choice, else the OS preference.
+      (() => {
+        let theme;
+        try {
+          theme = localStorage.getItem('theme');
+        } catch {}
+        if (theme !== 'light' && theme !== 'dark') {
+          theme = matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+        }
+        document.documentElement.dataset.theme = theme;
+      })();
+    </script>
     <Font cssVariable="--font-sour-gummy" preload />
   </head>
   <body>

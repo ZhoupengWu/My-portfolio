@@ -5,7 +5,7 @@ description: Design system and UI conventions of Wu Zhoupeng's portfolio (Astro 
 
 # Portfolio design system
 
-Playful but tidy: a pastel yellow page, a soft grey-blue header, white cards with a gentle shadow, and colorful headings in the palette of the original site. Everything is styled with Tailwind utilities on top of the tokens in `src/styles/global.css`. Read that file before inventing any style.
+Playful but tidy: a pastel yellow page, a floating pill-shaped header, white cards with a gentle shadow, and colorful headings in the palette of the original site. Everything is styled with Tailwind utilities on top of the tokens in `src/styles/global.css`. Read that file before inventing any style.
 
 ## Principles
 
@@ -25,10 +25,14 @@ Playful but tidy: a pastel yellow page, a soft grey-blue header, white cards wit
 
 Two kinds of tokens, both defined in `global.css`:
 
-- **Semantic** (switch automatically between light and dark): `bg-bg`, `bg-surface`, `bg-surface-alt`, `bg-accent-soft`, `text-ink`, `text-muted`, `border-line`, `text-link`, `text-brand`, `text-h1`, `text-h2`, `text-h3`. Use these for almost everything. Do not add `dark:` variants.
-- **Brand palette** (fixed, from the original site): `verdetto` green, `giallogno` olive, `fucsia` pink (the accent for hover and focus), `violaccio` indigo (primary buttons), `rosso` red, `blu`, `azzurretta`, `verdone`, `violetta`. Use them for accents, not for large surfaces.
+- **Semantic** (switch automatically between light and dark): `bg-bg`, `bg-surface`, `bg-surface-alt`, `bg-accent-soft`, `text-ink`, `text-muted`, `border-line`, `text-link`, `text-h1`, `text-h2`, `text-h3`. Use these for almost everything. Do not add `dark:` variants.
+- **Brand palette** (fixed, from the original site): `verdetto` green, `giallogno` olive, `giallino` cream (the light page color, used by the logo), `fucsia` pink (the accent for hover and focus), `violaccio` indigo (primary buttons and the logo), `rosso` red, `blu`, `azzurretta`, `verdone`, `violetta`. Use them for accents, not for large surfaces.
 
 If a new color is needed, add a token to `global.css` (with a dark value if it is semantic) instead of using a literal.
+
+### Light and dark theme
+
+The palette is switched with `data-theme="light|dark"` on `<html>`. An inline script in `Base.astro` sets it before first paint from the saved choice (`localStorage` key `theme`), falling back to the OS preference; `ThemeToggle.astro` flips and saves it. In `global.css` the dark values live in `:root[data-theme='dark']`, with a media-query copy for visitors without JavaScript. When you change a dark value, change both blocks. To show something only in one theme (for example the sun and moon icons), use an arbitrary variant such as `[[data-theme=dark]_&]:hidden`, not `dark:`.
 
 ## Layout
 
@@ -48,7 +52,10 @@ If a new color is needed, add a token to `global.css` (with a dark value if it i
 - **Buttons**: `.btn` (filled indigo, pink on hover) and `.btn-outline`. Both are pill-shaped and lift slightly on hover.
 - **Pills** (technology tags): `bg-surface-alt rounded-full px-2.5 py-0.5 text-xs`.
 - **Surface panel** (Skills groups): `bg-surface rounded-card p-6 shadow-card`.
-- **Header**: current page is marked with `aria-current="page"` (bold with a fucsia underline). New pages are added to `NAV_LINKS` in `src/consts.ts`.
+- **Header** (`Header.astro`): a sticky, blurred pill (`bg-surface/85 backdrop-blur`, `rounded-full` from `lg`, `rounded-3xl` below) with the `Logo` and the name on the left, links on the right and the theme toggle. The current page is marked with `aria-current="page"` and shown as an `bg-accent-soft` pill in bold. Below `lg` the links collapse into a menu opened by a round button; Escape and choosing a link close it. New pages are added to `NAV_LINKS` in `src/consts.ts`.
+- **Logo** (`Logo.astro`): the "ZP" monogram, same drawing as `public/favicon.svg`: cream rounded strokes on an indigo rounded square, with a thin `ring-line` outline so it stays visible in dark mode.
+- **Theme toggle** (`ThemeToggle.astro`): a round `size-10` icon button (moon in light, sun in dark) whose `aria-label` always names the action. It disables transitions for a moment so every color changes at once.
+- **Icon buttons**: `border-line bg-surface-alt text-ink size-10 rounded-full border` with `hover:bg-accent-soft`.
 
 Shared patterns that appear on more than one page belong in `@layer components` in `global.css` or in a component, not copied.
 
@@ -62,11 +69,11 @@ Short transitions (150-300ms) on `transform` and `color` only. `global.css` alre
 - Alt text on every image; decorative elements get `aria-hidden="true"`.
 - Link text makes sense out of context ("View on GitHub", not "here").
 - Color is never the only signal; contrast is acceptable in both themes.
-- Interactive elements are reachable and usable with the keyboard.
+- Interactive elements are reachable and usable with the keyboard; icon-only buttons have an `aria-label` and set `aria-expanded` when they open something.
 
 ## Before finishing a UI change
 
 1. `npm run build` passes.
-2. Look at the result with Playwright screenshots at 1100px and 390px wide, in light and dark (`colorScheme: 'dark'`). Serve the build with `npx astro preview`.
+2. Look at the result with Playwright screenshots at 1100px and 390px wide, in light and dark (`colorScheme: 'dark'` sets the initial theme). Wait about half a second after clicking the theme toggle before a screenshot. Serve the build with `npx astro preview`.
 3. Check empty states (no projects, no education entries) and a long title or description.
 4. Update `CLAUDE.md` and the README if you added a page, collection or convention.

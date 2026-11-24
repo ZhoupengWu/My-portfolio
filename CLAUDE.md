@@ -32,7 +32,7 @@ Personal portfolio of Wu Zhoupeng, a static Astro site deployed on Vercel. Site 
 - `src/content/projects/*.md`: one Markdown file per project, validated by `src/content.config.ts`. See the README for the frontmatter fields.
 - `src/content/education/*.md`: repositories used to learn a language or tool (work in progress by nature), rendered at `/education`.
 - `src/data/skills.ts`: skill groups for `/skills`; each skill is linked automatically to the projects and education entries whose `technologies` contain its name.
-- `src/components/`: `ProjectCard` (cards for both collections) and `EntryDetail` (shared detail layout).
+- `src/components/`: `Header` (sticky pill with menu), `Logo`, `ThemeToggle`, `Footer`, `ProjectCard` (cards for both collections) and `EntryDetail` (shared detail layout).
 - `src/consts.ts`: site title, nav links, copyright years, and the personal details (location, socials) read from `.env`. A new page needs a file in `src/pages/` plus an entry in `NAV_LINKS` if it belongs in the menu.
 - `src/styles/global.css`: Tailwind v4 entry point with the design tokens.
 - `src/assets/`: images and the self-hosted Sour Gummy font files (via `fontProviders.local()` in `astro.config.mjs`).
@@ -42,14 +42,14 @@ Personal portfolio of Wu Zhoupeng, a static Astro site deployed on Vercel. Site 
 
 - For any UI work, follow the design system in `.claude/skills/design/SKILL.md`.
 - Style with Tailwind utility classes; no scoped `<style>` blocks unless a utility cannot express it.
-- Use the semantic color tokens (`bg-bg`, `bg-surface`, `text-ink`, `text-muted`, `text-h1`...). They switch between light and dark automatically, so avoid `dark:` variants and raw hex values.
+- Use the semantic color tokens (`bg-bg`, `bg-surface`, `text-ink`, `text-muted`, `text-h1`...). They switch between light and dark automatically, so avoid `dark:` variants and raw hex values. The theme is the `data-theme` attribute on `<html>`, set before first paint by an inline script in `Base.astro` and flipped by `ThemeToggle`; see the design skill before touching it.
 - The brand palette tokens (`verdetto`, `fucsia`, `giallogno`, `violaccio`, `rosso`, `blu`...) are fixed and come from the original site.
 - Reusable styles shared by several pages (`.btn`, `.container-site`) live in the `components` layer of `global.css`.
 - Keep pages accessible: one `h1` per page, alt text on images, keyboard-reachable navigation.
 - Project images go in `src/assets/projects/` and are referenced from frontmatter with a relative path so Astro optimizes them.
 - Personal details (location, social links) come from environment variables, not from the code: declare them in `env.schema` in `astro.config.mjs`, import them from `astro:env/client`, and document them in `.env.example` and the README. They must stay optional so the build works without `.env`. Never commit `.env`.
 - Above-the-fold images must load eagerly (`loading="eager"`). `ProjectCard` takes an `eager` prop: Home passes it for its featured cards, and the Projects and Education lists pass it for every card up to `EAGER_COVERS_LIMIT` (in `src/consts.ts`). Astro's dev toolbar audit flags eager images below the fold (`perf-use-loading-lazy`) and lazy ones above it (`perf-use-loading-eager`) depending on the window size, so no static value is warning-free everywhere; with short lists the cost of eager is negligible, so revisit the limit if a list grows.
-- Favicons live in `public/`: `favicon.svg` is the source (indigo rounded square with a yellow "W"), `favicon.ico` (16/32/48) and `apple-touch-icon.png` (180) are generated from it.
+- Favicons live in `public/`: `favicon.svg` is the source (indigo rounded square with a cream "ZP"; `Logo.astro` draws the same monogram), `favicon.ico` (16/32/48) and `apple-touch-icon.png` (180) are generated from it.
 - Do not fetch fonts or other assets from third-party CDNs at build time; the build must work offline.
 
 ### Checks

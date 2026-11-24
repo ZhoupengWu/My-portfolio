@@ -14,6 +14,7 @@
   --color-violaccio: #231651;
   --color-fucsia: #ff0077;
   --color-rosso: #ff0000;
+  --color-giallino: #ffffbf;
   --color-blu: #00579e;
 
   --radius-card: 0.75rem;
@@ -32,12 +33,16 @@
   --color-h2: var(--h2);
   --color-h3: var(--h3);
   --color-link: var(--link);
-  --color-brand: var(--brand);
   --shadow-card: var(--shadow);
   --font-sans: var(--font-sour-gummy), system-ui, sans-serif;
 }
 
 @layer base {
+  /*
+   * Light is the default. The dark palette applies when `data-theme="dark"` is set on <html>
+   * (by the inline script in Base.astro, from the saved choice or the OS preference). The media
+   * query is only a fallback for visitors without JavaScript, so the two dark blocks must match.
+   */
   :root {
     --bg: #ffffbf;
     --surface: #ffffff;
@@ -50,13 +55,28 @@
     --h2: #15941f;
     --h3: #ff0077;
     --link: #00579e;
-    --brand: #ff0000;
     --shadow: 0 4px 6px rgb(0 0 0 / 0.1);
-    color-scheme: light dark;
+    color-scheme: light;
+  }
+
+  :root[data-theme='dark'] {
+    --bg: #12102a;
+    --surface: #1c1840;
+    --surface-alt: #231651;
+    --ink: #ececf3;
+    --muted: #a4a6b3;
+    --line: #34305c;
+    --accent-soft: #1a4a7a;
+    --h1: #d4d94a;
+    --h2: #4fd75b;
+    --h3: #ff5aa5;
+    --link: #6cb8ff;
+    --shadow: 0 4px 10px rgb(0 0 0 / 0.4);
+    color-scheme: dark;
   }
 
   @media (prefers-color-scheme: dark) {
-    :root {
+    :root:not([data-theme]) {
       --bg: #12102a;
       --surface: #1c1840;
       --surface-alt: #231651;
@@ -68,8 +88,8 @@
       --h2: #4fd75b;
       --h3: #ff5aa5;
       --link: #6cb8ff;
-      --brand: #ff5a5a;
       --shadow: 0 4px 10px rgb(0 0 0 / 0.4);
+      color-scheme: dark;
     }
   }
 
@@ -120,6 +140,12 @@
   .btn-outline {
     @apply text-ink border-ink bg-transparent;
   }
+}
+
+/* Added briefly while the theme changes, see ThemeToggle.astro. */
+.no-transitions,
+.no-transitions * {
+  transition: none !important;
 }
 
 @media (prefers-reduced-motion: reduce) {

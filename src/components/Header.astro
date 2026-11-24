@@ -1,33 +1,49 @@
 ---
 import { NAV_LINKS, SITE_TITLE } from '../consts';
+import Logo from './Logo.astro';
+import ThemeToggle from './ThemeToggle.astro';
 
 const path = Astro.url.pathname.replace(/\/$/, '') || '/';
 const isActive = (href: string) => (href === '/' ? path === '/' : path === href || path.startsWith(`${href}/`));
 ---
 
-<header class="bg-surface-alt mx-auto w-full max-w-site rounded-b-card">
-  <div class="flex flex-wrap items-center justify-between px-5 py-3.5">
-    <a class="text-brand text-2xl no-underline" href="/">{SITE_TITLE}</a>
-    <button
-      class="menu-toggle border-line flex cursor-pointer flex-col gap-1 rounded-lg border p-2 sm:hidden"
-      type="button"
-      aria-expanded="false"
-      aria-controls="site-nav"
-      aria-label="Toggle navigation"
-    >
-      <span class="bg-ink block h-0.5 w-[22px]"></span>
-      <span class="bg-ink block h-0.5 w-[22px]"></span>
-      <span class="bg-ink block h-0.5 w-[22px]"></span>
-    </button>
-    <nav id="site-nav" aria-label="Main" class="hidden w-full pt-3 data-[open]:block sm:block sm:w-auto sm:pt-0">
-      <ul class="m-0 flex list-none flex-col gap-2 p-0 sm:flex-row sm:gap-6">
+<header class="sticky top-0 z-40 px-5 pt-3">
+  <div
+    class="border-line bg-surface/85 shadow-card mx-auto flex max-w-site flex-wrap items-center gap-x-2 rounded-3xl border px-3 py-2 backdrop-blur lg:rounded-full"
+  >
+    <a href="/" class="text-ink flex items-center gap-3 rounded-full py-0.5 pr-3 no-underline transition-colors duration-200 hover:text-fucsia">
+      <Logo class="size-9 shrink-0" />
+      <span class="text-xl font-bold">{SITE_TITLE}</span>
+    </a>
+
+    <div class="ml-auto flex items-center gap-2 lg:order-last lg:ml-2">
+      <ThemeToggle />
+      <button
+        type="button"
+        data-menu-toggle
+        aria-expanded="false"
+        aria-controls="site-nav"
+        aria-label="Open menu"
+        class="border-line bg-surface-alt text-ink group grid size-10 shrink-0 cursor-pointer place-items-center rounded-full border transition-colors duration-200 hover:bg-accent-soft lg:hidden"
+      >
+        <svg viewBox="0 0 24 24" aria-hidden="true" class="size-5 fill-none stroke-current group-aria-expanded:hidden" stroke-width="2" stroke-linecap="round">
+          <path d="M4 7h16M4 12h16M4 17h16"></path>
+        </svg>
+        <svg viewBox="0 0 24 24" aria-hidden="true" class="hidden size-5 fill-none stroke-current group-aria-expanded:block" stroke-width="2" stroke-linecap="round">
+          <path d="M6 6l12 12M18 6L6 18"></path>
+        </svg>
+      </button>
+    </div>
+
+    <nav id="site-nav" aria-label="Main" class="order-last hidden w-full pt-2 pb-1 data-[open]:block lg:order-none lg:ml-auto lg:block lg:w-auto lg:p-0">
+      <ul class="m-0 flex list-none flex-col gap-1 p-0 lg:flex-row lg:gap-1">
         {
           NAV_LINKS.map((link) => (
             <li>
               <a
                 href={link.href}
                 aria-current={isActive(link.href) ? 'page' : undefined}
-                class="text-ink border-b-[3px] border-transparent py-1 no-underline transition-colors duration-200 hover:text-fucsia aria-[current=page]:border-fucsia aria-[current=page]:font-bold"
+                class="text-ink block rounded-full px-4 py-2 no-underline transition-colors duration-200 hover:bg-surface-alt aria-[current=page]:bg-accent-soft aria-[current=page]:font-bold"
               >
                 {link.label}
               </a>
@@ -40,10 +56,25 @@ const isActive = (href: string) => (href === '/' ? path === '/' : path === href 
 </header>
 
 <script>
-  const toggle = document.querySelector<HTMLButtonElement>('.menu-toggle');
+  const toggle = document.querySelector<HTMLButtonElement>('[data-menu-toggle]');
   const nav = document.getElementById('site-nav');
-  toggle?.addEventListener('click', () => {
-    const open = nav?.toggleAttribute('data-open') ?? false;
-    toggle.setAttribute('aria-expanded', String(open));
+
+  const setOpen = (open: boolean) => {
+    nav?.toggleAttribute('data-open', open);
+    toggle?.setAttribute('aria-expanded', String(open));
+    toggle?.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+  };
+
+  toggle?.addEventListener('click', () => setOpen(toggle.getAttribute('aria-expanded') !== 'true'));
+
+  // Close the menu with Escape and when a link is chosen.
+  document.addEventListener('keydown', (event) => {
+    if (event.key === 'Escape' && toggle?.getAttribute('aria-expanded') === 'true') {
+      setOpen(false);
+      toggle.focus();
+    }
+  });
+  nav?.addEventListener('click', (event) => {
+    if ((event.target as HTMLElement).closest('a')) setOpen(false);
   });
 </script>
