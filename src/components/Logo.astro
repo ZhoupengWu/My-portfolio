@@ -1,0 +1,15 @@
+---
+// The "ZP" monogram, same drawing as public/favicon.svg.
+interface Props {
+  class?: string;
+}
+const { class: className } = Astro.props;
+---
+
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" aria-hidden="true" class:list={['ring-line rounded-[22%] ring-1', className]}>
+  <rect width="32" height="32" rx="7" class="fill-violaccio"></rect>
+  <g class="stroke-giallino fill-none" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M5.5 9.6 H14.8 L5.5 22.4 H14.8"></path>
+    <path d="M19.2 22.4 V9.6 H22.6 A4.3 4.3 0 0 1 22.6 18.2 H19.2"></path>
+  </g>
+</svg>
