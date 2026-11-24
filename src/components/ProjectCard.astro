@@ -12,9 +12,11 @@ interface Props {
   cover?: ImageMetadata;
   coverAlt?: string;
   coverFit?: 'cover' | 'contain';
+  /** Load the cover right away; use it for cards that are above the fold. */
+  eager?: boolean;
 }
 
-const { href, title, description, label, technologies, cover, coverAlt, coverFit = 'cover' } = Astro.props;
+const { href, title, description, label, technologies, cover, coverAlt, coverFit = 'cover', eager = false } = Astro.props;
 const fitClass = coverFit === 'contain' ? 'bg-white object-contain p-6' : 'object-cover';
 ---
 
@@ -29,6 +31,7 @@ const fitClass = coverFit === 'contain' ? 'bg-white object-contain p-6' : 'objec
           alt={coverAlt ?? title}
           widths={[400, 800]}
           sizes="(min-width: 64rem) 20rem, 90vw"
+          loading={eager ? 'eager' : 'lazy'}
           class:list={['h-[200px] w-full', fitClass]}
         />
       ) : (

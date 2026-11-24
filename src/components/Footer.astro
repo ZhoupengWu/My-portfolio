@@ -1,21 +1,25 @@
 ---
-import { SITE_TITLE, SOCIALS } from '../consts';
+import { SITE_TITLE, SOCIALS, START_YEAR } from '../consts';
+
 const year = new Date().getFullYear();
+const years = year > START_YEAR ? `${START_YEAR}-${year}` : `${START_YEAR}`;
 ---
 
 <footer class="border-line text-muted mt-16 border-t py-6">
   <div class="container-site flex flex-wrap items-center justify-between gap-3">
-    <p class="m-0">&copy; {year} {SITE_TITLE}</p>
-    <ul class="m-0 flex list-none gap-5 p-0">
-      {
-        SOCIALS.map((s) => (
-          <li>
-            <a class="text-muted transition-colors duration-200 hover:text-fucsia" href={s.href} rel="noopener noreferrer" target="_blank">
-              {s.label}
-            </a>
-          </li>
-        ))
-      }
-    </ul>
+    <p class="m-0">&copy; {years} {SITE_TITLE}</p>
+    {
+      SOCIALS.length > 0 && (
+        <ul class="m-0 flex list-none gap-5 p-0">
+          {SOCIALS.map((s) => (
+            <li>
+              <a class="text-muted transition-colors duration-200 hover:text-fucsia" href={s.href} rel="noopener noreferrer" target="_blank">
+                {s.label}
+              </a>
+            </li>
+          ))}
+        </ul>
+      )
+    }
   </div>
 </footer>

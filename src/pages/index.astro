@@ -13,7 +13,9 @@ const featured = (await getCollection('projects', ({ data }) => !data.draft && d
   <section class="container-site pt-20 pb-8 text-center">
     <p class="text-h3 m-0 text-2xl">Hi, I'm</p>
     <h1>Wu Zhoupeng</h1>
-    <p class="mx-auto max-w-xl text-[1.35rem]">Developer based in {LOCATION}. I like building things with code.</p>
+    <p class="mx-auto max-w-xl text-[1.35rem]">
+      {LOCATION ? `Developer based in ${LOCATION}.` : 'Developer.'} I like building things with code.
+    </p>
     <p class="mt-8 flex flex-wrap justify-center gap-4">
       <a class="btn" href="/projects">See my projects</a>
       <a class="btn btn-outline" href="/contact">Get in touch</a>
@@ -25,7 +27,7 @@ const featured = (await getCollection('projects', ({ data }) => !data.draft && d
       <section class="container-site mt-12">
         <h2>Featured projects</h2>
         <div class="grid grid-cols-[repeat(auto-fill,minmax(18rem,1fr))] gap-6">
-          {featured.map(({ id, data }) => (
+          {featured.map(({ id, data }, i) => (
             <ProjectCard
               href={`/projects/${id}`}
               title={data.title}
@@ -35,6 +37,7 @@ const featured = (await getCollection('projects', ({ data }) => !data.draft && d
               cover={data.cover}
               coverAlt={data.coverAlt}
               coverFit={data.coverFit}
+              eager={i < 3}
             />
           ))}
         </div>

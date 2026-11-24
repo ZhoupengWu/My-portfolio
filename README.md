@@ -52,6 +52,23 @@ Markdown body…
 
 Create `src/content/education/<slug>.md` with `title`, `description`, `date` (when you started), `technologies`, `status` (`in-progress` or `completed`) and `repo`. It appears at `/education`, and its technologies show up on `/skills` marked as "Learning" until a project uses them too.
 
+## Configuration
+
+Personal details are read from environment variables, declared in `astro.config.mjs` (`env.schema`) and imported through `astro:env/client` in `src/consts.ts`.
+
+```sh
+cp .env.example .env
+```
+
+| Variable               | Used for                          |
+| :--------------------- | :-------------------------------- |
+| `PUBLIC_LOCATION`      | Location on Home, About, Contact  |
+| `PUBLIC_GITHUB_URL`    | GitHub link in footer and Contact |
+| `PUBLIC_INSTAGRAM_URL` | Instagram link                    |
+| `PUBLIC_TIKTOK_URL`    | TikTok link                       |
+
+All of them are optional: a missing variable hides the related content instead of breaking the build. `.env` is git-ignored, so on Vercel add the same variables in **Project Settings → Environment Variables**. The values still end up in the generated HTML, so only use public information.
+
 ## Commands
 
 | Command           | Action                                      |
