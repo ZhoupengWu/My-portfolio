@@ -4,6 +4,7 @@ description: My study notes and exercises following The Rust Programming Languag
 date: 2026-05-31
 technologies: [Rust, Cargo]
 status: in-progress
+topics: [Getting started, Variables and types, Functions and control flow, Ownership, Borrowing and slices, Structs and methods, Enums and pattern matching]
 repo: https://github.com/ZhoupengWu/rust-fundamentals
 ---
 

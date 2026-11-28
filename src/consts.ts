@@ -13,10 +13,11 @@ export const NAV_LINKS = [
 ] as const;
 
 /**
- * Card lists with up to this many entries load every cover eagerly. The lists are short and the
- * covers small, and on tall screens more than the first row is above the fold.
+ * Covers that are on screen at first paint load eagerly; the rest are lazy (Astro's guidance).
+ * On the Projects page each project is a tall row, so on desktop-sized windows only the first two
+ * rows are visible without scrolling. Measured with the dev toolbar audit, see CLAUDE.md.
  */
-export const EAGER_COVERS_LIMIT = 6;
+export const EAGER_PROJECT_ROWS = 2;
 
 /** Years shown in the footer copyright. Update it by hand. */
 export const COPYRIGHT_YEARS = '2025-2026';

@@ -33,6 +33,7 @@
   --color-h2: var(--h2);
   --color-h3: var(--h3);
   --color-link: var(--link);
+  --color-btn: var(--btn);
   --shadow-card: var(--shadow);
   --font-sans: var(--font-sour-gummy), system-ui, sans-serif;
 }
@@ -55,6 +56,7 @@
     --h2: #15941f;
     --h3: #ff0077;
     --link: #00579e;
+    --btn: #231651;
     --shadow: 0 4px 6px rgb(0 0 0 / 0.1);
     color-scheme: light;
   }
@@ -71,6 +73,7 @@
     --h2: #4fd75b;
     --h3: #ff5aa5;
     --link: #6cb8ff;
+    --btn: #5a43c8;
     --shadow: 0 4px 10px rgb(0 0 0 / 0.4);
     color-scheme: dark;
   }
@@ -88,6 +91,7 @@
       --h2: #4fd75b;
       --h3: #ff5aa5;
       --link: #6cb8ff;
+      --btn: #5a43c8;
       --shadow: 0 4px 10px rgb(0 0 0 / 0.4);
       color-scheme: dark;
     }
@@ -135,7 +139,7 @@
   }
 
   .btn {
-    @apply bg-violaccio border-violaccio inline-block rounded-full border-2 px-5 py-2.5 text-white no-underline transition duration-200 hover:-translate-y-0.5 hover:border-fucsia hover:bg-fucsia;
+    @apply bg-btn border-btn inline-block rounded-full border-2 px-5 py-2.5 text-white no-underline transition duration-200 hover:-translate-y-0.5 hover:border-fucsia hover:bg-fucsia;
   }
   .btn-outline {
     @apply text-ink border-ink bg-transparent;

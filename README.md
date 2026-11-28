@@ -50,7 +50,7 @@ Markdown body…
 
 ## Adding an education repo
 
-Create `src/content/education/<slug>.md` with `title`, `description`, `date` (when you started), `technologies`, `status` (`in-progress` or `completed`) and `repo`. It appears at `/education`, and its technologies show up on `/skills` marked as "Learning" until a project uses them too.
+Create `src/content/education/<slug>.md` with `title`, `description`, `date` (when you started), `technologies`, `status` (`in-progress` or `completed`), `repo`, and optionally `topics` (a short list of what the repo covers so far, shown on its card). It appears at `/education`, and its technologies show up on `/skills` marked as "Learning" until a project uses them too.
 
 ## Configuration
 
