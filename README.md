@@ -63,6 +63,7 @@ cp .env.example .env
 | Variable               | Used for                          |
 | :--------------------- | :-------------------------------- |
 | `PUBLIC_LOCATION`      | Location on About and Contact     |
+| `PUBLIC_EMAIL`         | Email address on Contact          |
 | `PUBLIC_GITHUB_URL`    | GitHub link in the footer         |
 | `PUBLIC_INSTAGRAM_URL` | Instagram link in the footer      |
 | `PUBLIC_TIKTOK_URL`    | TikTok link in the footer         |
