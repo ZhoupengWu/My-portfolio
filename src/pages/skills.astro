@@ -33,34 +33,31 @@ const withUsage = groups.map((group) => ({
 
 <Base title="Skills" description="Languages, tools and technologies Wu Zhoupeng works with">
   <section class="container-site">
-    <header class="bg-accent-soft mt-12 mb-10 rounded-card px-6 py-10 text-center">
-      <h1 class="mb-1">Skills</h1>
-      <p class="mb-0">What I work with, and where I've used it.</p>
+    <header class="mt-12 mb-10 text-center">
+      <h1 class="mb-0">Skills</h1>
     </header>
 
-    <div class="grid gap-6 md:grid-cols-2">
+    <div class="flex flex-col gap-12">
       {
         withUsage.map((group) => (
-          <section class="bg-surface rounded-card p-6 shadow-card">
-            <h2 class="text-2xl!">{group.title}</h2>
-            <ul class="m-0 list-none space-y-4 p-0">
+          <section>
+            <h2 class="mb-5">{group.title}</h2>
+            <ul class="m-0 grid list-none grid-cols-[repeat(auto-fill,minmax(15rem,1fr))] gap-4 p-0">
               {group.skills.map((skill) => (
-                <li>
-                  <p class="m-0 flex flex-wrap items-center gap-2 font-bold">
+                <li class="border-line bg-surface shadow-card rounded-card border px-5 py-4">
+                  <p class="m-0 flex flex-wrap items-center gap-2 text-xl font-bold">
                     {skill.name}
-                    {skill.learning && (
-                      <span class="bg-accent-soft text-ink rounded-full px-2 py-0.5 text-xs font-medium">Learning</span>
-                    )}
+                    {skill.learning && <span class="bg-accent-soft text-ink rounded-full px-2.5 py-0.5 text-xs font-medium">Learning</span>}
                   </p>
-                  {(skill.used.length > 0 || skill.note) && (
-                    <p class="text-muted m-0 text-sm">
+                  {skill.used.length > 0 && (
+                    <p class="text-muted m-0 mt-1 text-sm">
+                      Used in{' '}
                       {skill.used.map((u, i) => (
                         <>
                           {i > 0 && ', '}
                           <a href={u.href}>{u.title}</a>
                         </>
                       ))}
-                      {skill.note && <>{skill.used.length > 0 && ', '}{skill.note}</>}
                     </p>
                   )}
                 </li>

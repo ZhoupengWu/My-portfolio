@@ -1,4 +1,4 @@
-import { PUBLIC_GITHUB_URL, PUBLIC_INSTAGRAM_URL, PUBLIC_LOCATION, PUBLIC_TIKTOK_URL } from 'astro:env/client';
+import { PUBLIC_EMAIL, PUBLIC_GITHUB_URL, PUBLIC_INSTAGRAM_URL, PUBLIC_LOCATION, PUBLIC_TIKTOK_URL } from 'astro:env/client';
 
 export const SITE_TITLE = 'Wu Zhoupeng';
 export const SITE_DESCRIPTION = "Wu Zhoupeng's portfolio";
@@ -24,6 +24,7 @@ export const COPYRIGHT_YEARS = '2025-2026';
 
 // Personal details come from `.env` (see `.env.example`); anything unset is left out.
 export const LOCATION: string | undefined = PUBLIC_LOCATION;
+export const EMAIL: string | undefined = PUBLIC_EMAIL;
 
 export const SOCIALS = [
   { label: 'GitHub', href: PUBLIC_GITHUB_URL },

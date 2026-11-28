@@ -5,11 +5,9 @@
  * `technologies` list contains its name (case-insensitive). A skill that only
  * appears in education repos is shown as "Learning". Technologies used in
  * content but missing here end up in an "Other" group, so nothing is lost.
- * Use `note` for usage that is not backed by a content entry.
  */
 export interface Skill {
   name: string;
-  note?: string;
 }
 
 export interface SkillGroup {
@@ -24,15 +22,7 @@ export const SKILL_GROUPS: SkillGroup[] = [
   },
   {
     title: 'Web',
-    skills: [
-      { name: 'HTML' },
-      { name: 'CSS' },
-      { name: 'Canvas' },
-      { name: 'Flask' },
-      { name: 'Gin' },
-      { name: 'Astro', note: 'This site' },
-      { name: 'Tailwind CSS', note: 'This site' },
-    ],
+    skills: [{ name: 'HTML' }, { name: 'CSS' }, { name: 'Canvas' }, { name: 'Flask' }, { name: 'Gin' }],
   },
   {
     title: 'Data & tooling',

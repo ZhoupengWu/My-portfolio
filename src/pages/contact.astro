@@ -1,20 +1,32 @@
 ---
 import Base from '../layouts/Base.astro';
-import { LOCATION } from '../consts';
+import { EMAIL, LOCATION } from '../consts';
+
+type Row = { label: string; value: string; href?: string };
+const rows = [
+  EMAIL ? { label: 'Email', value: EMAIL, href: `mailto:${EMAIL}` } : undefined,
+  LOCATION ? { label: 'Location', value: LOCATION } : undefined,
+].filter((row): row is Row => Boolean(row));
 ---
 
 <Base title="Contact" description="How to reach Wu Zhoupeng">
   <section class="container-site">
-    <div class="mt-12 mb-8">
-      <h3 class="mb-1">Contact</h3>
-      <h1>How to reach me</h1>
-    </div>
+    <header class="mt-12 mb-10 text-center">
+      <h1 class="mb-0">Contact</h1>
+    </header>
+
     {
-      LOCATION && (
-        <div class="text-center">
-          <h2>Location</h2>
-          <p class="text-link text-xl font-bold">{LOCATION}</p>
-        </div>
+      rows.length > 0 ? (
+        <dl class="border-line bg-surface shadow-card divide-line m-0 mx-auto max-w-xl divide-y overflow-hidden rounded-card border">
+          {rows.map((row) => (
+            <div class="grid gap-1 px-6 py-5 sm:grid-cols-[7rem_1fr] sm:items-center sm:gap-4">
+              <dt class="text-muted text-sm tracking-wider uppercase">{row.label}</dt>
+              <dd class="m-0 text-xl font-bold">{row.href ? <a href={row.href}>{row.value}</a> : row.value}</dd>
+            </div>
+          ))}
+        </dl>
+      ) : (
+        <p class="text-muted text-center">Contact details are coming soon.</p>
       )
     }
   </section>

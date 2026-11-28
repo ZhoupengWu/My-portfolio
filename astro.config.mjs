@@ -19,6 +19,7 @@ export default defineConfig({
   env: {
     schema: {
       PUBLIC_LOCATION: envField.string({ context: 'client', access: 'public', optional: true }),
+      PUBLIC_EMAIL: envField.string({ context: 'client', access: 'public', optional: true, includes: '@' }),
       PUBLIC_GITHUB_URL: envField.string({ context: 'client', access: 'public', optional: true, url: true }),
       PUBLIC_INSTAGRAM_URL: envField.string({ context: 'client', access: 'public', optional: true, url: true }),
       PUBLIC_TIKTOK_URL: envField.string({ context: 'client', access: 'public', optional: true, url: true }),
