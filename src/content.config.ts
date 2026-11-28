@@ -33,6 +33,8 @@ const education = defineCollection({
       date: z.coerce.date(),
       technologies: z.array(z.string()),
       status: z.enum(['in-progress', 'completed']).default('in-progress'),
+      // Short list of what the repo covers so far, shown on the card.
+      topics: z.array(z.string()).default([]),
       cover: image().optional(),
       coverAlt: z.string().optional(),
       coverFit: z.enum(['cover', 'contain']).default('cover'),

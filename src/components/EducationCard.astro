@@ -1,0 +1,64 @@
+---
+import { STATUS_LABELS } from '../utils';
+
+interface Props {
+  href: string;
+  title: string;
+  description: string;
+  status: keyof typeof STATUS_LABELS;
+  started: string;
+  technologies: string[];
+  topics: string[];
+  repo: string;
+}
+
+const { href, title, description, status, started, technologies, topics, repo } = Astro.props;
+// The first technology is the language being learned; it fills the tile.
+const [language, ...rest] = technologies;
+const dotClass = status === 'completed' ? 'bg-verdetto' : 'bg-fucsia';
+---
+
+<article class="border-line bg-surface shadow-card grid overflow-hidden rounded-card border md:grid-cols-[12rem_1fr]">
+  <a {href} tabindex="-1" aria-hidden="true" class="bg-accent-soft text-ink grid place-items-center px-6 py-5 text-4xl font-bold no-underline md:py-6 md:text-5xl">
+    {language}
+  </a>
+
+  <div class="p-6">
+    <p class="m-0 mb-2 flex flex-wrap items-center gap-x-3 gap-y-1 text-sm">
+      <span class="bg-surface-alt inline-flex items-center gap-2 rounded-full px-3 py-0.5 font-bold">
+        <span class:list={['size-2 rounded-full', dotClass]} aria-hidden="true"></span>
+        {STATUS_LABELS[status]}
+      </span>
+      <span class="text-muted">Started {started}</span>
+    </p>
+
+    <h2 class="mb-2 text-2xl!">
+      <a {href} class="text-inherit no-underline transition-colors duration-200 hover:text-fucsia">{title}</a>
+    </h2>
+    <p>{description}</p>
+
+    {
+      rest.length > 0 && (
+        <ul class="m-0 mb-4 flex list-none flex-wrap gap-1.5 p-0" aria-label="Also using">
+          {rest.map((t) => <li class="bg-surface-alt rounded-full px-2.5 py-0.5 text-xs">{t}</li>)}
+        </ul>
+      )
+    }
+
+    {
+      topics.length > 0 && (
+        <>
+          <p class="text-muted m-0 mb-2 text-sm tracking-wider uppercase">Covered so far</p>
+          <ul class="m-0 mb-6 flex list-none flex-wrap gap-1.5 p-0">
+            {topics.map((t) => <li class="border-line rounded-full border px-3 py-0.5 text-sm">{t}</li>)}
+          </ul>
+        </>
+      )
+    }
+
+    <p class="m-0 flex flex-wrap gap-3">
+      <a class="btn" {href}>Details<span class="sr-only"> of {title}</span></a>
+      <a class="btn btn-outline" href={repo} target="_blank" rel="noopener noreferrer">GitHub<span class="sr-only"> repository of {title} (opens in a new tab)</span></a>
+    </p>
+  </div>
+</article>

@@ -4,6 +4,7 @@ description: Small Go programs and exercises I wrote while learning the language
 date: 2026-02-12
 technologies: [Go, Gin, GORM, PostgreSQL]
 status: in-progress
+topics: [Variables, const and iota, Functions, Control structures, Arrays and collections, Structs, Pointers, Interfaces, Testing, net/http, REST APIs with Gin and GORM]
 repo: https://github.com/ZhoupengWu/golang-fundamentals
 ---
 

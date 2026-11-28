@@ -25,7 +25,7 @@ Playful but tidy: a pastel yellow page, a floating pill-shaped header, white car
 
 Two kinds of tokens, both defined in `global.css`:
 
-- **Semantic** (switch automatically between light and dark): `bg-bg`, `bg-surface`, `bg-surface-alt`, `bg-accent-soft`, `text-ink`, `text-muted`, `border-line`, `text-link`, `text-h1`, `text-h2`, `text-h3`. Use these for almost everything. Do not add `dark:` variants.
+- **Semantic** (switch automatically between light and dark): `bg-bg`, `bg-surface`, `bg-surface-alt`, `bg-accent-soft`, `bg-btn`, `text-ink`, `text-muted`, `border-line`, `text-link`, `text-h1`, `text-h2`, `text-h3`. Use these for almost everything. Do not add `dark:` variants.
 - **Brand palette** (fixed, from the original site): `verdetto` green, `giallogno` olive, `giallino` cream (the light page color, used by the logo), `fucsia` pink (the accent for hover and focus), `violaccio` indigo (primary buttons and the logo), `rosso` red, `blu`, `azzurretta`, `verdone`, `violetta`. Use them for accents, not for large surfaces.
 
 If a new color is needed, add a token to `global.css` (with a dark value if it is semantic) instead of using a literal.
@@ -45,13 +45,15 @@ The palette is switched with `data-theme="light|dark"` on `<html>`. An inline sc
 
 ## Components and patterns
 
-- **Page header band** (Education, Skills): `header.bg-accent-soft.mt-12.mb-10.rounded-card.px-6.py-10.text-center` with an `h1` and a one-line `p`.
+- **Page titles**: Projects and Education use just a centered `h1` (`mt-12 mb-8 text-center`, no subtitle or band).
+- **Page header band** (Skills): `header.bg-accent-soft.mt-12.mb-10.rounded-card.px-6.py-10.text-center` with an `h1` and a one-line `p`.
 - **Projects page** (`projects/index.astro` with `ProjectRow.astro`): a plain `h1` with a muted line, a row of filter chips, then one row per project with a `gap-16` rhythm. Each row is a two-column grid on `md` (a 16:10 framed cover next to category and period, the `h2` title, description, technology pills and buttons for Details, GitHub and Live demo); the cover side alternates left and right, and everything stacks on mobile. Covers use `coverFit` as in cards. Categories come from the projects' `category` field.
 - **Filter chips**: `rounded-full border` buttons with `aria-pressed`; the pressed chip is an `accent-soft` pill like the active nav link, with the count in muted text. The group is `hidden` in the HTML and shown by script, so without JavaScript all projects are listed. The choice is kept in the URL hash and announced through an `aria-live` region.
-- **Card** (`ProjectCard.astro`, used on Home and Education): white surface, `rounded-card`, `shadow-card`, lifts with `-translate-y-2` on hover and focus-within. Takes `href`, `title`, `description`, `label`, `technologies`, and an optional cover. Without a cover it shows the initial letter on `bg-accent-soft`.
+- **Education page** (`education/index.astro` with `EducationCard.astro`): one wide card per learning repo, in-progress first (group headings only appear when there is more than one group). Left, a tile with the language name on `bg-accent-soft` (a strip on top on mobile); right, a status pill (colored dot plus label) with the start date, the `h2` title, description, secondary technologies, a "Covered so far" list of `topics` as outlined pills, and Details and GitHub buttons.
+- **Card** (`ProjectCard.astro`, used on Home): white surface, `rounded-card`, `shadow-card`, lifts with `-translate-y-2` on hover and focus-within. Takes `href`, `title`, `description`, `label`, `technologies`, and an optional cover. Without a cover it shows the initial letter on `bg-accent-soft`.
 - **Cover images**: `coverFit: cover` crops to 200px height; `coverFit: contain` puts a logo on white with padding. Images live in `src/assets/projects/` and go through `astro:assets`.
 - **Detail page** (`EntryDetail.astro`): back link, `h1`, cover, Markdown body on the left, a "Details" sidebar and the GitHub/demo buttons on the right.
-- **Buttons**: `.btn` (filled indigo, pink on hover) and `.btn-outline`. Both are pill-shaped and lift slightly on hover.
+- **Buttons**: `.btn` (filled `bg-btn`: indigo in light, a lighter indigo in dark so it stays visible; pink on hover) and `.btn-outline`. Both are pill-shaped and lift slightly on hover.
 - **Pills** (technology tags): `bg-surface-alt rounded-full px-2.5 py-0.5 text-xs`.
 - **Surface panel** (Skills groups): `bg-surface rounded-card p-6 shadow-card`.
 - **Header** (`Header.astro`): a sticky, blurred pill (`bg-surface/85 backdrop-blur`, `rounded-full` from `lg`, `rounded-3xl` below) with just the `Logo` on the left (a link home with an `aria-label`, no visible name), links on the right and the theme toggle. The current page is marked with `aria-current="page"` and shown as an `bg-accent-soft` pill in bold. Below `lg` the links collapse into a menu opened by a round button; Escape and choosing a link close it. New pages are added to `NAV_LINKS` in `src/consts.ts`.

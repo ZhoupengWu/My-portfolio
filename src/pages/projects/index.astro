@@ -2,7 +2,7 @@
 import { getCollection } from 'astro:content';
 import Base from '../../layouts/Base.astro';
 import ProjectRow from '../../components/ProjectRow.astro';
-import { EAGER_COVERS_LIMIT } from '../../consts';
+import { EAGER_PROJECT_ROWS } from '../../consts';
 import { formatPeriod } from '../../utils';
 
 const projects = (await getCollection('projects', ({ data }) => !data.draft)).sort(
@@ -26,16 +26,15 @@ const chipClass =
 
 <Base title="Projects" description="Some projects made by Wu Zhoupeng">
   <section class="container-site">
-    <header class="mt-12 mb-8">
-      <h1 class="mb-2">Projects</h1>
-      <p class="text-muted m-0 text-xl">Some things I've built.</p>
+    <header class="mt-12 mb-8 text-center">
+      <h1 class="mb-0">Projects</h1>
     </header>
 
     {
       projects.length > 0 ? (
         <>
           {/* Shown by the script below; without JavaScript every project is listed and there is no filter. */}
-          <div id="project-filters" hidden role="group" aria-label="Filter projects by category" class="mb-10 flex flex-wrap gap-2">
+          <div id="project-filters" hidden role="group" aria-label="Filter projects by category" class="mb-10 flex flex-wrap justify-center gap-2">
             <button type="button" data-filter="all" aria-pressed="true" class={chipClass}>
               All <span class="text-muted font-normal">{projects.length}</span>
             </button>
@@ -63,7 +62,7 @@ const chipClass =
                 repo={data.repo}
                 demo={data.demo}
                 reverse={i % 2 === 1}
-                eager={i < EAGER_COVERS_LIMIT}
+                eager={i < EAGER_PROJECT_ROWS}
               />
             ))}
           </div>
